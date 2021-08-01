@@ -17,6 +17,8 @@ class SplashActivity : AppCompatActivity() {
         splashBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(splashBinding.root)
 
+        supportActionBar?.hide()
+
         val handler = Handler(mainLooper)
 
         splashBinding.pbLoading
