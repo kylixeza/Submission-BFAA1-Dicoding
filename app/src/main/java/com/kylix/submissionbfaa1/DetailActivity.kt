@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.app.NavUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kylix.submissionbfaa1.databinding.ActivityDetailBinding
 import com.kylix.submissionbfaa1.model.User
+import com.kylix.submissionbfaa1.util.Formatting
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,8 +33,8 @@ class DetailActivity : AppCompatActivity() {
 
         detailBinding.apply {
             tvDetailNumberOfRepos.text = user?.repository
-            tvDetailNumberOfFollowers.text = user?.followers
-            tvDetailNumberOfFollowing.text = user?.following
+            tvDetailNumberOfFollowers.text = user?.followers?.let { Formatting.shortenNumber(it) }
+            tvDetailNumberOfFollowing.text = user?.following?.let { Formatting.shortenNumber(it) }
             tvDetailName.text = user?.name
             tvDetailCompany.text = user?.company
             tvDetailLocation.text = user?.location
@@ -42,6 +44,12 @@ class DetailActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)
             setDisplayHomeAsUpEnabled(true)
             title = user?.username
+            elevation = 0f
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }
